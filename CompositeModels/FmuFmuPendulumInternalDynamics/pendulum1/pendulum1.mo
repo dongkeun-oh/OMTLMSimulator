@@ -2,7 +2,7 @@ model pendulum1 "Simple double pendulum with two revolute joints and two bodies"
   inner Modelica.Mechanics.MultiBody.World world(enableAnimation = false, animateWorld = false, animateGravity = false) annotation(
     Placement(visible = true, transformation(origin = {24, 14}, extent = {{-88, 0}, {-68, 20}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Components.Damper damper(d = 0.1) annotation(
-    Placement(visible = true, transformation(origin = {-2.8176, 55.2064}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-0.8176, 57.2064}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.BodyBox boxBody1(r = {0.25, 0, 0}, width = 0.06, r_0.fixed = true, r_0.start = {0, 0, 0}, v_0.fixed = true, v_0.start = {0, 0, 0}) annotation(
     Placement(visible = true, transformation(origin = {49.499, 24.4289}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Joints.Revolute revolute1(useAxisFlange = true, phi(fixed = true), w(fixed = true)) annotation(
@@ -12,12 +12,12 @@ model pendulum1 "Simple double pendulum with two revolute joints and two bodies"
     input Real f[3];
     input Real t[3];
 equation
+  connect(damper.flange_b, revolute1.axis) annotation(
+    Line(points = {{9, 57}, {16, 57}, {16, 44}, {0, 44}, {0, 34}}));
+  connect(revolute1.support, damper.flange_a) annotation(
+    Line(points = {{-6, 34}, {-6, 44}, {-20, 44}, {-20, 57}, {-11, 57}}));
   fmi.f = f;
   fmi.t = t;
-  connect(revolute1.support, damper.flange_a) annotation(
-    Line(points = {{-6, 34}, {-6, 34}, {-6, 44}, {-20, 44}, {-20, 56}, {-12, 56}, {-12, 56}}));
-  connect(damper.flange_b, revolute1.axis) annotation(
-    Line(points = {{7, 55}, {16, 55}, {16, 44}, {0, 44}, {0, 34}}));
   connect(world.frame_b, revolute1.frame_a) annotation(
     Line(points = {{-44, 24}, {-10, 24}}, color = {95, 95, 95}, thickness = 0.5));
   connect(revolute1.frame_b, boxBody1.frame_a) annotation(

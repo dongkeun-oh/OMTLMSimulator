@@ -237,7 +237,6 @@ int  PluginImplementer::RegisteTLMInterface(std::string name , int dimensions,
 
     // The index of the new interface:
     int idx = Interfaces.size();
-
     Interfaces.push_back(ifc);
 
     MapID2Ind[id] = idx;
@@ -362,8 +361,7 @@ void PluginImplementer::GetForce1D(int interfaceID, double time, double position
 
 void PluginImplementer::GetForce1D(int interfaceID, double time, double speed, double *force) {
     if(!ModelChecked) CheckModel();
-
-    // Use the ID to get to the right interface object
+// Use the ID to get to the right interface object
     int idx = GetInterfaceIndex(interfaceID);
     TLMInterface1D* ifc = dynamic_cast<TLMInterface1D*>(Interfaces[idx]);
 

@@ -33,6 +33,10 @@
 //!  SOCKET is used on Win32 but not defined on Linux, its a synonym to int.
 typedef int SOCKET;
 
+#ifndef MSG_MORE 
+#define MSG_MORE 0
+#endif
+
 #endif
 
 //! TLMMessageTypeConst lists the constants used in MessageType field

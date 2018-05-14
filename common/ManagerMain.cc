@@ -145,6 +145,7 @@ int main(int argc, char* argv[]) {
             break;
         }
     }
+
     std::cout << "singleModel = " << singleModel << "\n";
 
     // Check for existing model (XML) file argument.
@@ -177,12 +178,10 @@ int main(int argc, char* argv[]) {
     if(serverPort > 0) {
         theModel.GetSimParams().SetPort(serverPort);
     }
-
     // Set preferred network port for monitoring
     if(monitorPort > 0) {
         theModel.GetSimParams().SetMonitorPort(monitorPort);
     }
-
     // Create manager object
     ManagerCommHandler manager(theModel);
 

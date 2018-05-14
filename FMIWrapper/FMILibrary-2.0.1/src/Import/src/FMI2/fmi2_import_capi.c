@@ -151,7 +151,7 @@ void fmi2_import_destroy_dllfmu(fmi2_import_t* fmu) {
 
 	
 	if(fmu -> capi) {
-		jm_log_verbose(fmu->callbacks, module, "Releasing FMU CAPI interface"); 
+		jm_log_verbose(fmu->callbacks, module, "Releasing FMU CAPI interface #0"); 
 
 		/* Free DLL handle */
 		fmi2_capi_free_dll(fmu -> capi);

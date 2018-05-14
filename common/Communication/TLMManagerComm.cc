@@ -85,7 +85,6 @@ int TLMManagerComm::CreateServerSocket() {
          socket(AF_INET, SOCK_STREAM,IPPROTO_TCP)
      #else
          socket(AF_INET, SOCK_STREAM,0)
-
      #endif
         ) < 0) {
         TLMErrorLog::FatalError("Create server socket - failed to get a socket handle");

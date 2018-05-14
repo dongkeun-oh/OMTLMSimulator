@@ -102,7 +102,6 @@ public:
                 TLMErrorLog::Info("Waiting for monitor to connect");
             }
         }
-
         try {
             con->ReaderThreadRun();
         }

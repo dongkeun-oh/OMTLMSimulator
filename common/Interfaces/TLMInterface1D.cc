@@ -181,7 +181,7 @@ void TLMInterface1D::SetTimeData(double time,
     }
     else {
         TLMPlugin::GetForce1D(speed, request, Params, &item.GenForce);
-    }
+   }
 
     // The wave to send is: (- Force + Impedance * Velocity)
     if(Domain == "Hydraulic") {
@@ -189,7 +189,7 @@ void TLMInterface1D::SetTimeData(double time,
     }
     else {
         item.GenForce   = -item.GenForce   +  Params.Zf * speed;
-    }
+}
 
     if(TLMErrorLog::GetLogLevel() >= TLMLogLevel::Info) {
         TLMErrorLog::Info(std::string("Interface ") + GetName() +

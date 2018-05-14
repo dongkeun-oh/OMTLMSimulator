@@ -135,7 +135,7 @@
           </hopsanobjectappearance>
         </hopsangui>
       </component>
-      <component cqstype="C" locked="false" subtypename="MechatronicTankC" typename="HydraulicMultiTankC" name="C_type_Tank">
+      <component cqstype="C" locked="false" subtypename="" typename="HydraulicMultiTankC" name="C_type_Tank">
         <parameters>
           <parameter unit="m^3/s" name="MP#Flow" type="double" value="0"/>
           <parameter unit="K" name="MP#Temperature" type="double" value="293"/>
@@ -150,7 +150,7 @@
           <nametext visible="0" position="0"/>
           <animation hydraulicminpressure="0" flowspeed="100" hydraulicmaxpressure="20000000"/>
           <hopsanobjectappearance version="0.3">
-            <modelobject subtypename="MechatronicTankC" displayname="C_type_Tank" typename="HydraulicMultiTankC">
+            <modelobject subtypename="" displayname="C_type_Tank" typename="HydraulicMultiTankC">
               <ports/>
             </modelobject>
           </hopsanobjectappearance>

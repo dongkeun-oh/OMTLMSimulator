@@ -293,7 +293,7 @@ void forceFromTlmToFmu(double tcur)
           fmistatus = fmi2_import_get_real(fmu,fmiConfig.speed_vr[j],1,&speed);
 
           //Get interpolated force
-          plugin->GetForce1D(fmiConfig.interfaceIds[j], tcur, speed,&force);
+          plugin->GetForce1D(fmiConfig.interfaceIds[j], tcur, speed, &force);
 
           if(fmiConfig.domains[j] != "Hydraulic") {
               force = -force;
@@ -513,6 +513,10 @@ int simulate_fmi2_cs()
 
             //Get interpolated force
             plugin->GetForce1D(fmiConfig.interfaceIds[j], tcur, speed,&force);
+
+            std::ostringstream strlog;
+            strlog << "-- time =" << tcur << " force =" << force << "\n";
+            TLMErrorLog::Info(strlog.str());
 
             if(fmiConfig.domains[j] != "Hydraulic") {
                 force = -force;

@@ -104,7 +104,7 @@ void* initialize_TLM()
 
 void deinitialize_TLM(void* in_TLMPluginStructObj)
 {
-  TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//  TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
 
   if (TLMPluginStructObj->referenceCount == 1) {
       TLMPluginStructObj->Plugin->AwaitClosePermission();
@@ -146,7 +146,7 @@ void set_debug_mode(int debugFlgIn)
 
 void register_tlm_interface(void *in_TLMPluginStructObj, const char *interfaceID, const char *causality, int dimensions, const char *domain)
 {
-   TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//  TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
 
    //Check if interface is registered. If it's not, register it
     if( MarkerIDmap.find(interfaceID) == MarkerIDmap.end() ){
@@ -191,10 +191,9 @@ void set_tlm_motion(void* in_TLMPluginStructObj,
                     double speed[],      // Marker translational velocity
                     double ang_speed[])
 {
-    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
     if( MarkerIDmap.find(interfaceID) != MarkerIDmap.end() ){
         int id = MarkerIDmap[interfaceID];
-
         if( id >= 0 ){
             TLMPluginStructObj->Plugin->SetMotion3D(id,          // Send data to the Plugin
 						  simTime,
@@ -203,7 +202,6 @@ void set_tlm_motion(void* in_TLMPluginStructObj,
 						  speed,
 						  ang_speed);
         }
-
     }
     else {
         TLMErrorLog::Warning( "set_tlm_motion(...), called for non initialized interface " + std::string(interfaceID));
@@ -217,7 +215,7 @@ void set_tlm_motion_1d(void* in_TLMPluginStructObj,
                     double position, // Marker position data
                     double speed)      // Marker translational velocity
 {
-    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
     if( MarkerIDmap.find(interfaceID) != MarkerIDmap.end() ){
         int id = MarkerIDmap[interfaceID];
 
@@ -240,7 +238,7 @@ void set_tlm_value_1d(void* in_TLMPluginStructObj,
                     double simTime,    // Current simulation time
                     double value)      // Marker translational velocity
 {
-    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
     if( MarkerIDmap.find(interfaceID) != MarkerIDmap.end() ){
         int id = MarkerIDmap.find(interfaceID)->second;
 
@@ -270,13 +268,12 @@ void calc_tlm_force(void* in_TLMPluginStructObj,
                     double force[],   // Output 3-component force
                     double torque[])  // Output 3-component torque
 {
-    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
     double forceOut[6];
     int f, t;
 
     // defined in OpenModelica dassl.c
     extern int RHSFinalFlag;
-
     bool allRegistered = (TLMPluginStructObj->referenceCount == TLMPluginStructObj->registerCount);
 
     if( RHSFinalFlag && allRegistered){
@@ -328,7 +325,7 @@ void calc_tlm_force_1d(void* in_TLMPluginStructObj,
                     double speed,      // Marker translational velocity
                     double force[])   // Output force
 {
-    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
     double forceOut[1];
 
     // defined in OpenModelica dassl.c
@@ -379,7 +376,7 @@ void calc_tlm_torque_1d(void* in_TLMPluginStructObj,
                     double speed,      // Marker translational velocity
                     double torque[])   // Output force
 {
-    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
     double forceOut[1];
 
     // defined in OpenModelica dassl.c
@@ -428,7 +425,7 @@ void get_tlm_input_value(void* in_TLMPluginStructObj,
                     double value[])   // Output value
 {
     TLMErrorLog::Info("CALLING: get_tlm_input_value(time = "+TLMErrorLog::ToStdStr(simTime)+")");
-    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
 
     bool allRegistered = (TLMPluginStructObj->referenceCount == TLMPluginStructObj->registerCount);
 
@@ -462,7 +459,7 @@ void set_tlm_output_value(void* in_TLMPluginStructObj,
                           double value)   // Output force
 {
     TLMErrorLog::Info("CALLING: set_tlm_output_value(time = "+TLMErrorLog::ToStdStr(simTime)+")");
-    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
+//    TLMPluginStruct* TLMPluginStructObj = (TLMPluginStruct*)in_TLMPluginStructObj;
 
     // Check if interface is registered. If it's not, register it
     register_tlm_interface(in_TLMPluginStructObj, interfaceID, "Output", 1, "Signal");

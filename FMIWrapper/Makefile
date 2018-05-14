@@ -43,6 +43,15 @@ else
 		-lfmilib_shared 
 endif
 
+ifeq ($(ABI),DARWIN)
+	POSTLINK = install_name_tool -change libfmilib_shared.dylib $(abspath $(BINDIR))/libfmilib_shared.dylib $(ABI)/$(BNAME); chmod +x StartTLMFmiWrapper
+else ifeq($(ABI),LINUX64)
+	POSTLINK = chmod +x StartTLMFmiWrapper
+else
+	POSTLINK = 
+endif 
+
+
 $(ABI)/%.o: %.cpp
 	$(CC) $(INCLUDES) -c $< -o $@
 
@@ -115,6 +124,7 @@ default: dirs
 	$(LINK) $(ABIOBJS$) -o $(ABI)/$(BNAME) $(LIBS)
 
 copyfiles:
+	$(POSTLINK)
 	cp $(ABI)/$(BNAME) $(BINDIR)
 	cp StartTLMFmiWrapper* $(BINDIR)
 

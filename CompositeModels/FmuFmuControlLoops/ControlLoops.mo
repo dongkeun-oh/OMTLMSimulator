@@ -13,9 +13,9 @@ model ControlLoops
     Placement(visible = true, transformation(origin = {104, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Real error(start = 0);
   output Real phi_rad;
-  Modelica.Mechanics.Rotational.Components.Spring TLM_spring(c = 10000000)  annotation(
+  Modelica.Mechanics.Rotational.Components.Spring TLM_spring(c = 1000000)  annotation(
     Placement(visible = true, transformation(origin = {18, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Mechanics.Rotational.Components.Inertia parasitic_inductance(J = 14) annotation(
+  Modelica.Mechanics.Rotational.Components.Inertia parasitic_inductance(J = 0.1) annotation(
     Placement(visible = true, transformation(origin = {-14, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
   connect(parasitic_inductance.flange_a, inertia2.flange_b) annotation(

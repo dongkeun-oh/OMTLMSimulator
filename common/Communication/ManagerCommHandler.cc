@@ -120,9 +120,9 @@ void ManagerCommHandler::RunStartupProtocol() {
         TM_Start(&tInfo);
         
         TLMErrorLog::Info("Communicating with clients...");
-        
         Comm.ClearActiveSockets();
-        // Check all the components for interface registration messages
+
+        // Check all the components for interface registration messagesa
         for(int iSock =  TheModel.GetComponentsNum() - 1; iSock >= 0; --iSock) {
             TLMComponentProxy& comp =  TheModel.GetTLMComponentProxy(iSock);
             int hdl = comp.GetSocketHandle();
@@ -565,7 +565,6 @@ void ManagerCommHandler::ReaderThreadRun() {
     TLMErrorLog::Info("All sockets are closed.");
     runningMode = ShutdownMode;
     MessageQueue.Terminate();
-
     Comm.CloseAll();
 }
 
@@ -580,7 +579,6 @@ void ManagerCommHandler::WriterThreadRun() {
         //TLMCommUtil::SendMessage(mm);
         MessageQueue.ReleaseSlot(tlm_mess);
     }
-    
 }
 
 

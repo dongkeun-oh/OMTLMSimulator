@@ -199,6 +199,7 @@ int TLMClientComm::ConnectManager(string& callname, int portnr) {
     TLMErrorLog::Info("Trying to find TLM manager host " + callname);
 
     hp = gethostbyname(callname.c_str());
+
     if(hp == NULL) {
         TLMErrorLog::FatalError(string("TLM: Cannot resolve the host :") + callname + ":");
         return(-1);
@@ -220,7 +221,7 @@ int TLMClientComm::ConnectManager(string& callname, int portnr) {
     else {
         TLMErrorLog::Info("TLM manager host found, trying to connect...");
     }
-
+    
     count = 0;
 
     while(connect(s, (struct sockaddr *) &sa, sizeof(sa)) < 0) {

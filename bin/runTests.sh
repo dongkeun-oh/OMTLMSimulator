@@ -1,5 +1,8 @@
 #!/bin/bash
 
+OMTLMSimulatorPath=/Users/spinhalf/Documents/Modelica/OMTLMSimulator
+export LD_LIBRARY_PATH=$OMTLMSimulatorPath/bin
+
 export PATH=$OMTLMSimulatorPath/bin:$PATH
 
 
@@ -29,18 +32,21 @@ do
 
 	# Check if fetch interfaces works
 	rm interfaceData.xml > /dev/null 2>&1
-	$OMTLMSimulatorPath/bin/tlmmanager -r $OMTLMSimulatorPath/CompositeModels/$i/$i.xml > /dev/null 2>&1
-
+	$OMTLMSimulatorPath/bin/tlmmanager -r $OMTLMSimulatorPath/CompositeModels/$i/$i.xml #> /dev/null 2>&1
+	
 	if ! [ -s interfaceData.xml ]
 	then
 		tput setaf 1
 		let "success = 0"
 		echo Fetch interface data failed!
 		tput sgr0
+                exit 1
 	fi
 
-	$OMTLMSimulatorPath/bin/tlmmanager -p 11111 -m $monitorport $OMTLMSimulatorPath/CompositeModels/$i/$i.xml > /dev/null 2>&1 &
-	$OMTLMSimulatorPath/bin/tlmmonitor -n 1000 127.0.1.1:$monitorport $OMTLMSimulatorPath/CompositeModels/$i/$i.xml
+        echo "Fetch interface data done."
+	
+	$OMTLMSimulatorPath/bin/tlmmanager -d -p 11111 -m $monitorport $OMTLMSimulatorPath/CompositeModels/$i/$i.xml > /dev/null 2>&1 &
+	$OMTLMSimulatorPath/bin/tlmmonitor -d -n 1000 localhost:$monitorport $OMTLMSimulatorPath/CompositeModels/$i/$i.xml
 
 	if [ $? -gt 0 ]
 	then

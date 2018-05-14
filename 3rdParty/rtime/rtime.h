@@ -116,7 +116,11 @@ typedef int clockid_t;
 
 #endif
 
-
+#if defined(__APPLE__) && defined(__MACH__)
+#include <time.h>
+#include <unistd.h>
+typedef struct timespec timespec_t;
+#endif
 
 /* ----------------------------------------------------------------------- */
 

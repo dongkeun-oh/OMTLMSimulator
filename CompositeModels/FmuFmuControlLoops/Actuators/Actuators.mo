@@ -10,11 +10,11 @@ model Actuators
   Modelica.Mechanics.Rotational.Components.Inertia inertia(J = 0.1)  annotation(
     Placement(visible = true, transformation(origin = {38, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
+  fmi.tau = tau;
   connect(inertia.flange_b, fmi.flange_a) annotation(
     Line(points = {{48, -20}, {63, -20}}));
   connect(torque.flange, inertia.flange_a) annotation(
     Line(points = {{22, -20}, {28, -20}, {28, -20}, {28, -20}}));
-  fmi.tau = tau;
   torque.tau = (phi_ref - phi) * Kp_phi;
   annotation(
     uses(Modelica(version = "3.2.2")));

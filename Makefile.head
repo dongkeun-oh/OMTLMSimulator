@@ -2,6 +2,9 @@
 # This file typically sets up the compiler and includes for the specific platform
 # Here we simply assume gcc and some GNU/Linux environment
 
+export ABI=DARWIN
+export OPENMODELICAHOME=/opt/openmodelica
+
 ifeq ($(ABI),)
   # We need some machine environment 
   $(error Please set the ABI environment variable, typical choices are: WINDOWS32, WINDOWS64, or LINUX64)
@@ -48,6 +51,16 @@ else ifeq ($(ABI),WINDOWS32)
   else
     $(error No compiler found to build for WINDOWS32)
   endif
+else ifeq($(ABI),DARWIN)
+    CC=g++
+    cc=gcc
+    LINK=g++
+    AR=ar
+    CP=cp
+    SHREXT=.dylib
+    CMAKE=cmake
+    CMAKE_TARGET="Unix Makefiles"
+    FMIL_FLAGS=
 else
     CC=g++
     cc=gcc
@@ -64,7 +77,7 @@ MISCHOME=$(UP)/extralibs/misc
 TIMEHOME=$(UP)/extralibs/rtime
 
 DEFINES= -DUSE_THREADS
-OPTFLAGS4=-O2
+OPTFLAGS4=-O2 
 
 ifeq (MINGW64,$(findstring MINGW64,$(shell uname)))
   INCLXML-WINDOWS64=-I$(OMDEV)/tools/msys/mingw64/include/libxml2
@@ -94,6 +107,13 @@ LIBXML-LINUX64=-lxml2
 CP-LIBXML-LINUX64=
 XTRLIBS-LINUX64=-lrt
 LIBPTHREAD-LINUX64=-L$(UP)/extralibs/pthread/$(ABI)/lib -lpthread
+
+INCLXML-DARWIN=-I/usr/include/libxml2
+LIBXML-DARWIN=-lxml2
+CP-LIBXML-DARWIN=
+XTRLIBS-DARWIN=
+INCLPTHREAD-DARWIN=-I/usr/include/pthread
+LIBPTHREAD-DARWIN=-lpthread
 
 INCLXML=$(INCLXML-$(ABI))
 LIBXML=$(LIBXML-$(ABI))

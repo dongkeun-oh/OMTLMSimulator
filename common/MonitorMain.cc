@@ -675,7 +675,6 @@ void PrintRunStatus(CompositeModel& model, std::ofstream& runFile, tTM_Info& tIn
 int main(int argc, char* argv[]) {
 
     TLMErrorLog::Info("Starting monitor...");
-
 #ifndef USE_THREADS
 #warning TLM manager requires pthreads to be compiled in. Use -DUSE_THREADS in the Makefile.head if neeeded.    
     TLMErrorLog::Error("tlmmanger was compiled without threads and is not usable.");
@@ -714,7 +713,7 @@ int main(int argc, char* argv[]) {
     logfile.open("monitor.log");
     TLMErrorLog::SetOutStream(logfile);
     if(debugFlg) {
-        TLMErrorLog::SetLogLevel(TLMLogLevel::Debug);
+        TLMErrorLog::SetLogLevel(TLMLogLevel::Info);
         TLMErrorLog::SetNormalErrorLogOn(true);
     }
 
